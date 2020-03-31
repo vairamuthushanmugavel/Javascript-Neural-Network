@@ -52,9 +52,9 @@ class Matrix {
    */
   add(num) {
     if (num instanceof Matrix) {
-      for(let row = 0 ; row <  this.rows ; row++){
-        for(let col = 0 ; col < this.cols ; col++){
-           this.data[row][col] +=  num.data[row][col]
+      for (let row = 0; row < this.rows; row++) {
+        for (let col = 0; col < this.cols; col++) {
+          this.data[row][col] += num.data[row][col];
         }
       }
     } else {
@@ -65,6 +65,24 @@ class Matrix {
       }
     }
   }
+
+  /**
+   * @param { Matrix } m1 matrix object
+   * @param { matrix } m2 matrix object
+   * @returns {Matrix} returns a subtracted matrix
+   */
+
+  static substract(m1,m2) {
+    let result =  new Matrix(m1.cols,m2.rows);
+    for(let row = 0 ; row < result.rows ; row++){
+      for(let col = 0 ; col < result.cols ; col++){
+         result.data[col][row] = m1.data[row][col] - m2.data[col][row]
+      }
+    }
+    return result;
+
+  }
+
   /**
    *@return {Matrix} Matrix object with randomized value
    */
@@ -79,11 +97,11 @@ class Matrix {
   /**
    * @returns {Matrix} A resulting matrix transposed vector.
    */
-  transpose() {
-    let result = new Matrix(this.cols, this.rows);
-    for (let row = 0; row < this.rows; row++) {
-      for (let col = 0; col < this.cols; col++) {
-        result.data[i][j] = this.data[i][j];
+  static transpose(mat) {
+    let result = new Matrix(mat.cols, mat.rows);
+    for (let row = 0; row < mat.rows; row++) {
+      for (let col = 0; col < mat.cols; col++) {
+        result.data[i][j] = mat.data[i][j];
       }
     }
     return result;
