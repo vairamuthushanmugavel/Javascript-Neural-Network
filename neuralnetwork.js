@@ -43,7 +43,7 @@ class NeuralNetwork {
     //Activation function
     output.map(sigmoid);
 
-    return output;
+    return Matrix.toArray(output);
   }
   /**
    * training function of the neuralnetwork.
@@ -94,7 +94,9 @@ class NeuralNetwork {
     let hidden_t = Matrix.transpose(hiddenoutput);
     let deltaweight_ho = Matrix.multiply(outputgradient,hidden_t);
     //correction the weights between hidden to output
-    this.weights_ho.add(deltaweight_ho)
+    this.weights_ho.add(deltaweight_ho);
+    //adjusting the bias of output layer
+    this.bias_o.add(outputgradient);
 
     //calculatin the gradients between input to hidden layer
     let inputgradient = Matrix.map(hiddenoutput,dsigmod);
@@ -105,11 +107,9 @@ class NeuralNetwork {
     let input_t = Matrix.transpose(inputs);
     //delta weight for input layer to hidden layer.
     let deltaweight_ih = Matrix.multiply(inputgradient,input_t);
-    this.weights_ih.add(deltaweight_ih);  
+    this.weights_ih.add(deltaweight_ih);
+    //adjusting the bias of hidden layer
+    this.bias_h.add(inputgradient);  
     
-
-
-
-
   }
 }
