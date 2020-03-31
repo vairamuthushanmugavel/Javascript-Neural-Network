@@ -18,7 +18,7 @@ class NeuralNetwork{
     this.bias_h = new Matrix(this.hiddencount,1);
     this.bias_h.randomize()
     //bias for output node.
-    this.bias_o = new Matrix(this.outputcount);
+    this.bias_o = new Matrix(this.outputcount,1);
     this.bias_o.randomize()
  }
  feedForward(inputs){
@@ -28,10 +28,14 @@ class NeuralNetwork{
    }
    //Matrix multiplication between input to hidden weights and inputs
    let hiddenoutput = Matrix.multiply(this.weights_ih,inputs);
+   //adding the bias
+   hiddenoutput.add(this.bias_h)
     // Activation function
     hiddenoutput.map(sigmoid);
    //multiplying the hidden output with hidden to output weights
    let output = Matrix.multiply(this.weights_ho,hiddenoutput);
+   //adding the bias
+   output.add(this.bias_o);
    //Activation function
     output.map(sigmoid);
 
