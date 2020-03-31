@@ -101,7 +101,7 @@ class Matrix {
     let result = new Matrix(mat.cols, mat.rows);
     for (let row = 0; row < mat.rows; row++) {
       for (let col = 0; col < mat.cols; col++) {
-        result.data[i][j] = mat.data[i][j];
+        result.data[col][row] = mat.data[row][col];
       }
     }
     return result;
