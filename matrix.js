@@ -23,6 +23,22 @@ class Matrix {
     }
   }
 
+  multiply(matrix) {
+    if (matrix instanceof Matrix) {
+      for (let row = 0; row < this.rows; row++) {
+        for (let col = 0; col < this.cols; col++) {
+          this.data[row][col] *= matrix.data[row][col];
+        }
+      }
+    } else {
+      for (let row = 0; row < this.rows; row++) {
+        for (let col = 0; col < this.cols; col++) {
+          this.data[row][col] *= matrix;
+        }
+      }
+    }
+  }
+
   /**
    * @static
    * @param  {Matrix} matrix1 matrix object
@@ -72,15 +88,14 @@ class Matrix {
    * @returns {Matrix} returns a subtracted matrix
    */
 
-  static substract(m1,m2) {
-    let result =  new Matrix(m1.cols,m2.rows);
-    for(let row = 0 ; row < result.rows ; row++){
-      for(let col = 0 ; col < result.cols ; col++){
-         result.data[col][row] = m1.data[row][col] - m2.data[col][row]
+  static substract(m1, m2) {
+    let result = new Matrix(m1.cols, m2.rows);
+    for (let row = 0; row < result.rows; row++) {
+      for (let col = 0; col < result.cols; col++) {
+        result.data[col][row] = m1.data[row][col] - m2.data[col][row];
       }
     }
     return result;
-
   }
 
   /**
@@ -116,6 +131,22 @@ class Matrix {
         this.data[row][col] = func(this.data[row][col], row, col);
       }
     }
+  }
+  /**
+   *
+   * @static
+   * @param {Matrix} matrix matrix which will be mapped
+   * @param {function} func  function which will give the mapping
+   * @returns {Matrix} matrix which was mapped
+   */
+  static map(matrix, func) {
+    let result = new Matrix(matrix.rows, matrix.cols);
+    for (let row = 0; row < result.rows; row++) {
+      for (let col = 0; col < result.cols; col++) {
+        result.data[row][col] = func(matrix.data[row][col], row, col);
+      }
+    }
+    return result;
   }
   /**
    * @param  {Matrix} matrix Input matrix object .
