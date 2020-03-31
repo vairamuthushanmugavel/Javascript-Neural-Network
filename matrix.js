@@ -15,7 +15,7 @@ class Matrix {
    * @param {Number} num scaler value
    * @return {Matrix} Matrix Object
    */
-  multiply(num) {
+  scaler(num) {
     for (let row = 0; row < this.rows; row++) {
       for (let col = this.cols; col < this.cols; col++) {
         this.data[row][col] *= num;
@@ -24,6 +24,7 @@ class Matrix {
   }
   
   /**
+   * @static
    * @param  {Matrix} matrix1 matrix object
    * @param  {Matrix} matrix2 matrix object
    * @returns {matrix }
@@ -62,7 +63,7 @@ class Matrix {
   randomize() {
     for (let row = 0; row < this.rows; row++) {
       for (let col = 0; col < this.cols; col++) {
-        this.data[row][col] = Math.floor(Math.random() * 10);
+        this.data[row][col] = Math.floor(Math.random() * 2 -1);
       }
     }
   }
@@ -80,8 +81,42 @@ class Matrix {
     }
     return result
   }
- 
-
+  
+  /**
+   * @param  {function} func takes function
+   */
+  map(func){
+    for(let row = 0 ; row  < this.rows ; row++){
+      for(let col = 0 ; col < this.cols ; col++){
+        this.data[row][col] = func(this.data[row][col],row,col)
+      }
+    }
+  }
+    /**
+   * @param  {Matrix} matrix Input matrix object .
+   * @returns {Array} output array of all the values.
+   */
+  static toArray(matrix){
+    let output  = [];
+    for(let row=0;row<matrix.rows;row++){
+      for(let col = 0 ; col < matrix.cols;col++){
+        output.push(matrix.data[row][col])
+      }
+    }
+    return output
+  }
+  /**
+   * 
+   * @param {Array} inputs Array which needs to be converted.
+   * @return {Matrix} matrix object
+   */
+  static fromArray(inputs){
+    let result = new Matrix(inputs.length,1);
+    for(let row = 0; row < result.rows ; row++){
+     result.data[row][0] = inputs[row]
+    }
+    return result;
+  }
   /**
    * @description print the matrix data in table format
    */
